@@ -4,6 +4,9 @@ import Endpoints from '../../utils/APIS';
 
 const initialState = {
     listOfBookings: [],
+    listofConfirmedBookings: [],
+    listofGeneralBookings: [],
+    listOfADjsBookings: [],
     selectedBooking: {},
     numberOfBookings: 0,
     responseMessage: '',
@@ -15,6 +18,26 @@ export const getAllBookings = createAsyncThunk(
     async (thunkAPI) => {
         try {
             const response = await axios.get(Endpoints.APIS.jobApis.list);
+            response.data.jobs.forEach((element, index) => {
+                element.id = element._id;
+                delete element._id;
+                delete element.__v;
+                element.startDate = new Date(element.startDate).toLocaleString();
+                element.endDate = new Date(element.endDate).toLocaleString();
+                element.number = index;
+            });
+            return response.data.jobs
+        } catch (error) {
+            return thunkAPI.rejectWithValue('Something went wrong!!');
+        }
+    }
+);
+
+export const getMyBookings = createAsyncThunk(
+    'booking/getMyBookings',
+    async (djId, thunkAPI) => {
+        try {
+            const response = await axios.get(Endpoints.APIS.jobApis.findBySuggestedDjId+djId);
             response.data.jobs.forEach((element, index) => {
                 element.id = element._id;
                 delete element._id;
@@ -87,6 +110,18 @@ const userSlice = createSlice({
             let listOfBookings = action.payload.sort((a,b) => new Date(a.sendDate) - new Date(b.sendDate));
             state.listOfBookings = listOfBookings;
             state.numberOfBookings = listOfBookings.length;
+            state.listofConfirmedBookings = action.payload.filter(booking => booking.status === 'Confirmed')
+            state.listofGeneralBookings = action.payload.filter(booking => booking.status === 'Confirmed' && (booking.jobType === 'Club' || booking.jobType === 'Public meeting sound system' || booking.jobType === 'Concert'))
+        },
+        [getMyBookings.rejected] : (state) => {
+            state.isLoading = false;
+        },
+        [getMyBookings.pending] : (state) => {
+            state.isLoading = true;
+        },
+        [getMyBookings.fulfilled] : (state, action) => {
+            state.isLoading = false;
+            state.listOfADjsBookings = action.payload.sort((a,b) => new Date(a.sendDate) - new Date(b.sendDate));
         },
         [getAllBookings.rejected] : (state) => {
             state.isLoading = false;

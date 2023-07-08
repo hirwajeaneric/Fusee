@@ -80,7 +80,7 @@ export default function Navigation() {
           <NavLink to={'/djs'}>DJs</NavLink>
           <NavLink to={'/book-now'} onClick={handleBookLinkConditions}>Book now</NavLink>
           <NavLink to={'/schedules'}>Schedules</NavLink>
-          {!localStorage.getItem('userTkn') && <button onClick={handleOpenSignUpModal}><LiaUserCircleSolid />Sign in / Sign up</button>}
+          {!localStorage.getItem('userTkn') && <button style={{ color: 'white' }} onClick={handleOpenSignUpModal}><LiaUserCircleSolid />Sign in / Sign up</button>}
           {(localStorage.getItem('userTkn') && user.userType === 'Admin' ) && <NavLink to={'/dash/'}>Dashboard</NavLink>}
           {localStorage.getItem('userTkn') && 
             <div>

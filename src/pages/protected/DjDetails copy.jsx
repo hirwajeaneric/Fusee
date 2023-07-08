@@ -5,9 +5,9 @@ import { ScrollContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getUserInfo } from "../../redux/features/userSlice";
-import { Button } from "react-admin";
 import axios from "axios";
 import Endpoints from "../../utils/APIS";
+import { Button } from "@mui/material";
 
 export default function DjDetails() {
   const { setNotHomePage } = useContext(ScrollContext);

@@ -16,11 +16,13 @@ export default function JobDetails() {
   const { setOpen, setResponseMessage, ...other } = useContext(ScrollContext);
   const [isProcessing, setIsProcessing] = useState(false);
   const [booking, setBooking] = useState({});
+  const [user, setUser] = useState({})
 
   useEffect(() => {
     if (window.location.pathname !== '/') {
       setNotHomePage(true);
     }
+    setUser(JSON.parse(localStorage.getItem('userInfo')));
     dispatch(getBookingDetails(params.id));
   }, [dispatch, params.id, setNotHomePage]);
 
@@ -138,30 +140,34 @@ export default function JobDetails() {
                       <p className="description">Status </p>
                       <p className="data">{selectedBooking.status}</p>
                     </div>
-                    <div className="data-container">
-                      <p className="description">Change status </p>
-                      <select id='status' name='status' onChange={handleBookingInfo} style={{ width: '60%' }}>
-                        <option value={''}>Choose Option</option>
-                        <option value={'Confirmed'}>Confirm</option>
-                        <option value={'Rejected'}>Reject</option>  
-                      </select> 
-                    </div>
-                    <div className="data-container">
-                      <p className="description">Choose DJ</p>
-                      <select id='status' name='suggestedDjId' onChange={handleBookingInfo} style={{ width: '60%' }}>
-                        <option value={''}>Choose a DJ</option>
-                        {listOfDJs && listOfDJs.map((dj, index) => 
-                          <option key={index} value={dj.id}>{dj.fullName}</option>)
-                        }  
-                      </select>
-                    </div>
-                    <div className="data-container" style={{ justifyContent: 'flex-end' }}>
-                      { isProcessing ?
-                        <Button disabled variant='contained' size='small' type='submit' color='primary'>PROCESSING...</Button>
-                        : 
-                        <Button variant='contained' size='small' type='submit' color='primary'>Confirm</Button>
-                      }
-                    </div>
+                    {user.userType !== 'DJ' && 
+                      <>
+                        <div className="data-container">
+                          <p className="description">Change status </p>
+                          <select id='status' name='status' onChange={handleBookingInfo} style={{ width: '60%' }}>
+                            <option value={''}>Choose Option</option>
+                            <option value={'Confirmed'}>Confirm</option>
+                            <option value={'Rejected'}>Reject</option>  
+                          </select> 
+                        </div>
+                        <div className="data-container">
+                          <p className="description">Choose DJ</p>
+                          <select id='status' name='suggestedDjId' onChange={handleBookingInfo} style={{ width: '60%' }}>
+                            <option value={''}>Choose a DJ</option>
+                            {listOfDJs && listOfDJs.map((dj, index) => 
+                              <option key={index} value={dj.id}>{dj.fullName}</option>)
+                            }  
+                          </select>
+                        </div>
+                        <div className="data-container" style={{ justifyContent: 'flex-end' }}>
+                          { isProcessing ?
+                            <Button disabled variant='contained' size='small' type='submit' color='primary'>PROCESSING...</Button>
+                            : 
+                            <Button variant='contained' size='small' type='submit' color='primary'>Confirm</Button>
+                          }
+                        </div>
+                      </>
+                    }
                   </div>
                 </RowFlexedContainerForm>
               </>

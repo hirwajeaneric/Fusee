@@ -17,7 +17,7 @@ export default function SearchForm() {
 
     const Search = (e) => {
         e.preventDefault();
-
+        
         navigate('/search');
     }
 

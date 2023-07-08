@@ -49,8 +49,10 @@ export default function BookForm() {
                     <option value="Birth Day party sound system"> Birth Day party sound system</option>
                     <option value="Wedding sound system"> Wedding sound system</option>
                     <option value="Private party sound system"> Private party sound system</option>
-                    <option value="Meeting sound system"> Meeting sound system</option>
-                    <option value="Other"> Other</option>
+                    <option value="Public meeting sound system"> Public meeting sound system</option>
+                    <option value="Private meeting sound system"> Private meeting sound system</option>
+                    <option value="Concert"> Concert</option>
+                    <option value="Club"> Club</option>
                 </select>
                 {errors.jobType?.type === "required" && (
                     <p role="alert">Job type is required</p>
@@ -143,7 +145,7 @@ export default function BookForm() {
                 <input 
                     type="text" 
                     placeholder="Requesting Company" 
-                    {...register("requestingCompany", {})}   
+                    {...register("requestingCompanyName", {})}   
                 />
             </div>
 

@@ -10,6 +10,7 @@ import Endpoints from "../../utils/APIS";
 import axios from "axios";
 import { getDjPictures, getPictureDetails } from "../../redux/features/jobPicturesSlice";
 import { Modal } from "@mui/material";
+import { getMyBookings } from "../../redux/features/bookingSlice";
 
 export default function DjInfo() {
   const { setNotHomePage } = useContext(ScrollContext);
@@ -56,6 +57,7 @@ export default function DjInfo() {
 
     dispatch(getUserInfo(user.id));
     dispatch(getDjPictures(user.id));
+    dispatch(getMyBookings(user.id));
 
     if (window.location.pathname !== '/' || window.location.pathname !== '') {
       setNotHomePage(true);
@@ -220,6 +222,7 @@ export default function DjInfo() {
   // STORE DATA
   const { isLoading, selectedUser } = useSelector(state => state.user);
   const { listOfJobPictures, selectedPicture } = useSelector(state => state.jobPicture);
+  const { listOfADjsBookings } = useSelector(state => state.booking)
 
   return (
     <PageContainer>
@@ -384,36 +387,38 @@ export default function DjInfo() {
                 </RowFlexedContainer2>
             
                 {/* DJs assigned events  */}
-                <RowFlexedContainer2 style={{ flexDirection: 'column', justifyContent:'flex-start', gap: '30px', alignItems: "flex-start", marginTop:'50px' }}>
+                {listOfADjsBookings.length !== 0 && <RowFlexedContainer2 style={{ flexDirection: 'column', justifyContent:'flex-start', gap: '30px', alignItems: "flex-start", marginTop:'50px' }}>
                   <h2 style={{ color: 'gray', fontWeight: '600', fontSize: '140%' }}>Your events</h2>
                   <RowFlexedContainer2 style={{ justifyContent:'flex-start', alignItems: "flex-start", gap: '20px', flexDirection: 'row' }}>
-                    <AnEvent>
-                      <div 
-                        className='picture'
-                        style={{ 
-                          background: "url('/pexels-francesco-paggiaro-2111015.jpg')", 
-                          backgroundSize: "cover",
-                          backgroundOrigin: "initial",  
-                        }}
-                      >
-                      </div>
-                      <div className='description'>
-                        <div className='day'>
-                          <p className='week-day'>Monday</p>
-                          <p className='date-time'>{new Date().toDateString()}</p>
+                    {listOfADjsBookings.map((booking, index) => (
+                      <AnEvent to={`../bookings/${booking.id}`} key={index}>
+                        <div className='picture'
+                          style={{ background: "url('/pexels-francesco-paggiaro-2111015.jpg')", backgroundSize: "cover",backgroundOrigin: "initial" }}>
                         </div>
-                        <p className='date-time'>
-                          {new Date().toLocaleTimeString()} to {new Date().toLocaleTimeString()}
-                        </p>
-                        <div className="location">
-                          <MdLocationPin />
-                          <p>Giporoso</p>
+                        <div className='description'>
+                          <p><strong>{booking.jobType}</strong></p>
+                          <br />
+                          <div className='day'>
+                            <p className='week-day'>{new Date(booking.startDate).getDay()}</p>
+                            <p className='date-time'>{new Date(booking.startDate).toDateString()}</p>
+                          </div>
+                          <p className='date-time'>
+                            {new Date(booking.startDate).toLocaleTimeString()} to {new Date(booking.endDate).toLocaleTimeString()}
+                          </p>
+                          <div className="location">
+                            <strong>Host</strong>
+                            <p>{booking.suggestedDjName}</p>
+                          </div>
+                          <div className="location">
+                            <MdLocationPin />
+                            <p>{booking.jobLocation}</p>
+                          </div>
                         </div>
-                      </div>
-                    </AnEvent>
+                      </AnEvent>
+                    ))}
 
                   </RowFlexedContainer2>
-                </RowFlexedContainer2>
+                </RowFlexedContainer2>}
               </>
             }
           </>

@@ -957,8 +957,8 @@ export const AnEvent = styled(Link)`
     .picture {
         background-size: cover;
         width: 100%;
-        height: 150px;
-        border-radius: 10px;
+        height: 100px;
+        border-radius: 10px 10px 0 0;
     }
 
     .description {
