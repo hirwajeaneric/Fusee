@@ -6,8 +6,8 @@ const initialState = {
     listOfDJs: [],
     selectedUser: {},
     numberOfDJs: 0,
-    searchQuery: {},
-    searchResults: [],
+    searchQuery: '',
+    searchUserResults: [],
     isLoading: false,
 }
 
@@ -64,18 +64,13 @@ const userSlice = createSlice({
         updateUserInfo: (state, action) => {
             state.selectedUser = action.payload;
             let users = state.listOfDJs;
-            // users.forEach(user => {
-            //     if (user.id === action.payload._id) {
-            //         user = action.payload;
-            //     }
-            // })
             state.listOfDJs = users;
         },
-        dinamicSearch: (state, action) => {
-            state.searchResults = state.listOfDJs.filter(user => !user.fullName.includes(action.payload));
+        dynamicSearch: (state, action) => {
+            state.searchUserResults = state.listOfDJs.filter(user => user.fullName.toUpperCase().includes(action.payload.toUpperCase()));
         },
         manualSearch: (state, action) => {
-            state.searchResults = state.listOfDJs.filter(user => user.fullName !== action.payload);
+            state.searchUserResults = state.listOfDJs.filter(user => user.fullName.toUpperCase().includes(action.payload.toUpperCase()));
         }
     },
     extraReducers: {

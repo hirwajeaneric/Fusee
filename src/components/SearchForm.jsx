@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import { SearchForm as SearchFormStyles, CustomTextField, CustomMaterialUiButton } from '../styles/GeneralStyledComponents';
 import { ScrollContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 export default function SearchForm() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { showSearchForm } = useContext(ScrollContext);
     const [searchData, setSearchData] = React.useState({
         name: '',
@@ -13,11 +15,23 @@ export default function SearchForm() {
 
     const handleSearchData = ({currentTarget: input}) => {
         setSearchData({...searchData, [input.name]: input.value});
+        console.log(searchData);
     }
 
     const Search = (e) => {
         e.preventDefault();
-        
+
+        console.log(searchData)
+
+        if (searchData.name && searchData.location) {
+            dispatch({type: 'user/manualSearch', payload: searchData.name });
+            dispatch({type: 'booking/manualSearch', payload: searchData.location });
+        } else if (searchData.name && !searchData.location) {
+            dispatch({type: 'user/manualSearch', payload: searchData.name });
+        } else if (!searchData.name && searchData.location) {
+            dispatch({type: 'booking/manualSearch', payload: searchData.location });
+        }
+
         navigate('/search');
     }
 

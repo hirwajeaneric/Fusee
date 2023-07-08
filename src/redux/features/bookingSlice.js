@@ -10,6 +10,8 @@ const initialState = {
     selectedBooking: {},
     numberOfBookings: 0,
     responseMessage: '',
+    searchedQuery: '',
+    searchBookingsResults: [],
     isLoading: false,
 }
 
@@ -95,10 +97,10 @@ const userSlice = createSlice({
             state.listOfBookings = bookings;
         },
         dynamicSearch: (state, action) => {
-            state.searchResults = state.listOfBookings.filter(booking => !booking.location.includes(action.payload));
+            state.searchBookingsResults = state.listOfBookings.filter(booking => booking.jobLocation.toUpperCase().includes(action.payload.toUpperCase()));
         },
         manualSearch: (state, action) => {
-            state.searchResults = state.listOfBookings.filter(booking => booking.location !== action.payload);
+            state.searchBookingsResults = state.listOfBookings.filter(booking => booking.jobLocation.toUpperCase().includes(action.payload.toUpperCase()));
         }
     },
     extraReducers: {
