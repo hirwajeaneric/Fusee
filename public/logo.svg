@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="500px"
+   height="500px"
+   viewBox="0 0 500 500"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="logo.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1116"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="0.8374018"
+     inkscape:cx="114.64031"
+     inkscape:cy="233.46021"
+     inkscape:window-width="1366"
+     inkscape:window-height="704"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1111" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <circle
+       style="fill:#ffffff;stroke-width:2.29325"
+       id="path33158-3"
+       cx="251.52551"
+       cy="250.6777"
+       r="248.39989" />
+    <path
+       sodipodi:type="star"
+       style="fill:#d85c27;fill-opacity:1;stroke-width:1.018"
+       id="path64778-6"
+       inkscape:flatsided="false"
+       sodipodi:sides="3"
+       sodipodi:cx="507.00909"
+       sodipodi:cy="43.941719"
+       sodipodi:r1="94.206268"
+       sodipodi:r2="47.103134"
+       sodipodi:arg1="0.72464798"
+       sodipodi:arg2="1.7718455"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       transform="matrix(2.0167985,-0.47314284,1.7778261,0.53674182,-913.0269,465.33624)"
+       inkscape:transform-center-x="-16.690846"
+       inkscape:transform-center-y="-0.019114079"
+       inkscape:export-filename="/home/hirwa/Documents/GRAPHIC/fusee-logo-0.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       d="m 577.54442,106.38841 -79.9417,-16.292327 -79.94171,-16.292326 54.08042,-61.085382 54.08042,-61.085383 25.86128,77.377707 z" />
+  </g>
+</svg>
