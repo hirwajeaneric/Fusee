@@ -97,8 +97,6 @@ export default function DjInfo() {
 
     var config = {};
 
-    console.log(profilePicture);
-
     if (profilePicture !== '' && profilePicture !== undefined) {
       config = {
         headers: { "Content-Type":"multipart/form-data" }
@@ -222,7 +220,7 @@ export default function DjInfo() {
   // STORE DATA
   const { isLoading, selectedUser } = useSelector(state => state.user);
   const { listOfJobPictures, selectedPicture } = useSelector(state => state.jobPicture);
-  const { listOfADjsBookings } = useSelector(state => state.booking)
+  const { listOfADjsBookings } = useSelector(state => state.booking);
 
   return (
     <PageContainer>

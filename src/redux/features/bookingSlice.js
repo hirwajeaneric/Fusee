@@ -5,6 +5,7 @@ import Endpoints from '../../utils/APIS';
 const initialState = {
     listOfBookings: [],
     listofConfirmedBookings: [],
+    numberofConfirmedBookings: 0,
     listofGeneralBookings: [],
     listOfADjsBookings: [],
     selectedBooking: {},
@@ -112,7 +113,9 @@ const userSlice = createSlice({
             let listOfBookings = action.payload.sort((a,b) => new Date(a.sendDate) - new Date(b.sendDate));
             state.listOfBookings = listOfBookings;
             state.numberOfBookings = listOfBookings.length;
-            state.listofConfirmedBookings = action.payload.filter(booking => booking.status === 'Confirmed')
+            const confirmedBookings = action.payload.filter(booking => booking.status === 'Confirmed');
+            state.listofConfirmedBookings = confirmedBookings;
+            state.numberofConfirmedBookings = confirmedBookings.length;
             state.listofGeneralBookings = action.payload.filter(booking => booking.status === 'Confirmed' && (booking.jobType === 'Club' || booking.jobType === 'Public meeting sound system' || booking.jobType === 'Concert'))
         },
         [getMyBookings.rejected] : (state) => {

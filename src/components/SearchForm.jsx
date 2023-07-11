@@ -21,8 +21,6 @@ export default function SearchForm() {
     const Search = (e) => {
         e.preventDefault();
 
-        console.log(searchData)
-
         if (searchData.name && searchData.location) {
             dispatch({type: 'user/manualSearch', payload: searchData.name });
             dispatch({type: 'booking/manualSearch', payload: searchData.location });

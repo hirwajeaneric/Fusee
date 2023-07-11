@@ -1426,3 +1426,75 @@ export const UserIconAndName = styled.div`
     @media (max-width: 480px) {
     }
 `;
+
+export const HorizontallyFlexedContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+`;
+
+export const VerticallyFlexedContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+`;
+
+export const AdminDashboardContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.1);
+
+    .first, .second, .third, .fouth {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        padding: 20px;
+
+        .inner-stats {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+
+            svg {
+                font-size: 400%;
+                margin-bottom: 20px;
+            }
+
+            h3 {
+                text-align: center;
+            }
+        }
+    }
+
+    @media (max-width: 1024px) {
+                
+    }
+
+    @media (max-width: 768px) {
+        .first, .second, .third, .fouth {
+            width: 50%;
+        }
+
+
+    }
+
+    @media (max-width: 480px) {
+        .first, .second, .third, .fouth {
+            width: 100%;
+        }
+    }
+
+`;

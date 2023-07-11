@@ -8,7 +8,9 @@ import { getUserInfo } from "../../redux/features/userSlice";
 import { useParams } from "react-router-dom";
 import Endpoints from "../../utils/APIS";
 import { getDjPictures, getPictureDetails } from "../../redux/features/jobPicturesSlice";
+import { listOfADjsBookings } from '../../redux/features/bookingSlice';
 import { Modal } from "@mui/material";
+import { getMyBookings } from "../../redux/features/bookingSlice";
 
 export default function DjInfo() {
   const { setNotHomePage } = useContext(ScrollContext);
@@ -23,6 +25,7 @@ export default function DjInfo() {
   useEffect(() => {
     dispatch(getUserInfo(params.djId));
     dispatch(getDjPictures(params.djId));
+    dispatch(getMyBookings(params.djId));
     if (window.location.pathname !== '/' || window.location.pathname !== '') {
       setNotHomePage(true);
     }
@@ -30,6 +33,7 @@ export default function DjInfo() {
 
   const { isLoading, selectedUser } = useSelector(state => state.user);
   const { listOfJobPictures, selectedPicture } = useSelector(state => state.jobPicture);
+  const { listOfADjsBookings } = useSelector(state => state.booking)
 
   return (
     <PageContainer>
@@ -69,54 +73,59 @@ export default function DjInfo() {
 
 
               {/* DJ's gallery  */}
-              <RowFlexedContainer2 style={{ flexDirection: 'column', justifyContent:'flex-start', gap: '20px', alignItems: "flex-start", marginTop:'40px' }}>
-                <h2 style={{ color: 'gray', fontWeight: '600', fontSize: '140%', margin: '0px', padding: '0px'}}>Gallery</h2>
-                
-                <RowFlexedContainer2 style={{ justifyContent:'flex-start', alignItems: "flex-start", gap: '20px', marginTop: '20px', flexDirection: 'row' }}>
-                  {!listOfJobPictures && <p>No pictures yet</p>}
-                  {listOfJobPictures && listOfJobPictures.map((element, index) => {
-                    return (
-                      <AnEvent key={index} onClick={() => {handleOpenModal(); dispatch(getPictureDetails(element._id))}}>
-                        <div className='picture' style={{ background: "url('"+Endpoints.APIS.files.pictures+element.picture+"')", backgroundSize: "cover", backgroundOrigin: "initial", }}></div>
-                      </AnEvent>
-                    )
-                  })}
+              {listOfJobPictures && 
+                <RowFlexedContainer2 style={{ flexDirection: 'column', justifyContent:'flex-start', gap: '20px', alignItems: "flex-start", marginTop:'40px' }}>
+                  <h2 style={{ color: 'gray', fontWeight: '600', fontSize: '140%', margin: '0px', padding: '0px'}}>Gallery</h2>
+                  
+                  <RowFlexedContainer2 style={{ justifyContent:'flex-start', alignItems: "flex-start", gap: '20px', marginTop: '20px', flexDirection: 'row' }}>
+                    {!listOfJobPictures && <p>No pictures yet</p>}
+                    {listOfJobPictures && listOfJobPictures.map((element, index) => {
+                      return (
+                        <AnEvent key={index} onClick={() => {handleOpenModal(); dispatch(getPictureDetails(element._id))}}>
+                          <div className='picture' style={{ height: '170px', borderRadius: '10px' , background: "url('"+Endpoints.APIS.files.pictures+element.picture+"')", backgroundSize: "cover", backgroundOrigin: "initial", }}></div>
+                        </AnEvent>
+                      )
+                    })}
+                  </RowFlexedContainer2>
                 </RowFlexedContainer2>
-              </RowFlexedContainer2>
+              }
 
 
 
               {/* DJs assigned events  */}
-              <RowFlexedContainer2 style={{ flexDirection: 'column', justifyContent:'flex-start', gap: '30px', alignItems: "flex-start", marginTop:'50px' }}>
-                <h2 style={{ color: 'gray', fontWeight: '600', fontSize: '140%' }}>Your events</h2>
-                <RowFlexedContainer2 style={{ justifyContent:'flex-start', alignItems: "flex-start", gap: '20px', flexDirection: 'row' }}>
-                  <AnEvent>
-                    <div 
-                      className='picture'
-                      style={{ 
-                        background: "url('/pexels-francesco-paggiaro-2111015.jpg')", 
-                        backgroundSize: "cover",
-                        backgroundOrigin: "initial",  
-                      }}
-                    >
-                    </div>
-                    <div className='description'>
-                      <div className='day'>
-                        <p className='week-day'>Monday</p>
-                        <p className='date-time'>{new Date().toDateString()}</p>
-                      </div>
-                      <p className='date-time'>
-                        {new Date().toLocaleTimeString()} to {new Date().toLocaleTimeString()}
-                      </p>
-                      <div className="location">
-                        <MdLocationPin />
-                        <p>Giporoso</p>
-                      </div>
-                    </div>
-                  </AnEvent>
+              {listOfADjsBookings.length !== 0 && <RowFlexedContainer2 style={{ flexDirection: 'column', justifyContent:'flex-start', gap: '30px', alignItems: "flex-start", marginTop:'50px' }}>
+                  <h2 style={{ color: 'gray', fontWeight: '600', fontSize: '140%' }}>Events</h2>
+                  <RowFlexedContainer2 style={{ justifyContent:'flex-start', alignItems: "flex-start", gap: '20px', flexDirection: 'row' }}>
+                    {listOfADjsBookings.map((booking, index) => (
+                      <AnEvent to={`../bookings/${booking.id}`} key={index}>
+                        <div className='picture'
+                          style={{ background: "url('/pexels-francesco-paggiaro-2111015.jpg')", backgroundSize: "cover",backgroundOrigin: "initial" }}>
+                        </div>
+                        <div className='description'>
+                          <p><strong>{booking.jobType}</strong></p>
+                          <br />
+                          <div className='day'>
+                            <p className='week-day'>{new Date(booking.startDate).getDay()}</p>
+                            <p className='date-time'>{new Date(booking.startDate).toDateString()}</p>
+                          </div>
+                          <p className='date-time'>
+                            {new Date(booking.startDate).toLocaleTimeString()} to {new Date(booking.endDate).toLocaleTimeString()}
+                          </p>
+                          <div className="location">
+                            <strong>Host</strong>
+                            <p>{booking.suggestedDjName}</p>
+                          </div>
+                          <div className="location">
+                            <MdLocationPin />
+                            <p>{(booking.jobType === 'Club' || booking.jobType === 'Concert' || booking.jobType === 'Public meeting sound system' || booking.jobType === 'Event Management') ? booking.jobLocation : 'Private'}</p>
+                          </div>
+                        </div>
+                      </AnEvent>
+                    ))}
 
+                  </RowFlexedContainer2>
                 </RowFlexedContainer2>
-              </RowFlexedContainer2>
+              }
             </>
           }
         </PageSizedContainer>

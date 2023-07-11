@@ -1,11 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import ListOfDjs from "../../pages/protected/ListOfDjs";
 import Endpoints from '../../utils/APIS';
 
 const initialState = {
     listOfDJs: [],
+    listOfActiveDjs: [],
     selectedUser: {},
     numberOfDJs: 0,
+    numberOfActiveDjs: 0,
     searchQuery: '',
     searchUserResults: [],
     isLoading: false,
@@ -82,6 +85,8 @@ const userSlice = createSlice({
             let listOfDJs = action.payload.filter(user => user.userType === 'DJ');
             state.listOfDJs = listOfDJs;
             state.numberOfDJs = listOfDJs.length;
+            state.listOfActiveDjs = listOfDJs.filter(user => user.status === "Active");
+            state.numberOfActiveDjs = listOfDJs.filter(user => user.status === "Active").length;
         },
         [getAllUsers.rejected] : (state) => {
             state.isLoading = false;
