@@ -24,7 +24,7 @@ export default function Djs() {
         <meta name="description" content={`All Djs who work with us.`} /> 
       </Helmet>
       <FullPageContainer style={{ background: '#f1f1f1', marginTop:'40px' }}>
-        <PageSizedContainer style={{ justifyContent: 'flex-start', minHeight: '70vh', minHeight: '70svh'}}>
+        <PageSizedContainer style={{ justifyContent: 'flex-start', minHeight: '70vh'}}>
           <HeaderOne1 style={{ fontWeight: '600', color: '#1b1d21', textAlign: 'center' }}>Our DJs</HeaderOne1>
           <RowFlexedContainer style={{ justifyContent:'center', gap: '30px', margin: '30px 0 20px', alignItems: "flex-start" }}> 
             {isLoading && <p>Loading...</p>}

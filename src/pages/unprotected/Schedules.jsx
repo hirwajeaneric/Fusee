@@ -15,7 +15,7 @@ export default function Schedules() {
       setNotHomePage(true);
     };
     dispatch(getAllBookings());
-  }, [setNotHomePage]);
+  }, [setNotHomePage, dispatch]);
 
   const { listofConfirmedBookings, isLoading } = useSelector(state => state.booking);
   
@@ -26,7 +26,7 @@ export default function Schedules() {
         <meta name="description" content={`Weekly events and jobs.`} /> 
       </Helmet>
       <FullPageContainer style={{ background: 'white' }}>
-        <PageSizedContainer style={{ justifyContent: 'flex-start', minHeight: '70vh', minHeight: '70svh'}}>
+        <PageSizedContainer style={{ justifyContent: 'flex-start', minHeight: '70vh'}}>
           <RowFlexedContainer2 style={{ justifyContent:'flex-start', gap: '30px', alignItems: "flex-start", marginTop:'50px', flexDirection: 'column' }}>
           <HeaderOne1 style={{ fontWeight: '600', color: '#1b1d21', width: '100%' }}>Weekly Schedule</HeaderOne1>
             <RowFlexedContainer2 style={{ justifyContent:'flex-start', alignItems: "flex-start", gap: '20px', flexDirection: 'row' }}>

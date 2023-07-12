@@ -17,6 +17,7 @@ export default function AdminResetPassword() {
     const [isProcessing, setIsProcessing] = useState(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
+    
     const onSubmit = data => {
         setIsProcessing(true);
 
@@ -73,7 +74,10 @@ export default function AdminResetPassword() {
                 </div>
                 
                 <div className="form-input-container">
-                    <input className='submit-button' value='SEND REQUEST' type="submit" />
+                    {isProcessing 
+                        ? <input disabled className='submit-button' value='PROCESSING...' type="button" /> 
+                        :<input className='submit-button' value='LOGIN' type="submit" />
+                    }
                 </div>
 
                 <div className='other-options'>

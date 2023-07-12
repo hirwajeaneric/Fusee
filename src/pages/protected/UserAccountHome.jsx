@@ -4,15 +4,21 @@ import { useContext, useEffect, useState } from "react";
 import { ScrollContext } from "../../App";
 import { BsCartCheck, BsCart3 } from "react-icons/bs";
 import { FiUsers, FiUserCheck } from "react-icons/fi";
-import { display } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBookings } from "../../redux/features/bookingSlice";
 import { MdLocationPin } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 export default function UserAccountHome() {
   const { setNotHomePage } = useContext(ScrollContext);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchOptions, setSearchOptions] = useState({ location: '', djName: ''});
+
+  const changeReportType = ({ currentTarget: input }) => {
+    dispatch({ type: 'report/setReportType', payload: input.value });
+    navigate("/dash/report-preview");
+  }
 
   useEffect(() => {
     if (window.location.pathname !== '/') {
@@ -46,7 +52,7 @@ export default function UserAccountHome() {
                     <h2>Dashboard</h2>
                     <HorizontallyFlexedContainer style={{ width: '50%', gap: '20px', justifyContent:'flex-end', alignItems:'center'}}>
                       <h4 style={{ fontWeight: '400' }}>Generate reports:</h4>
-                      <select style={{ fontSize:'100%', color: 'black', backgroundColor: 'white', padding: '8px 12px', border: '1px solid rgba(0,0,0,0.3)', borderRadius:'5px'}} type='text' name="search" placeholder="Search by Location">
+                      <select name="search" onChange={changeReportType} style={{ fontSize:'100%', color: 'black', backgroundColor: 'white', padding: '8px 12px', border: '1px solid rgba(0,0,0,0.3)', borderRadius:'5px'}}>
                         <option>Choose report</option>
                         <option value={'DJs'}>DJs</option>
                         <option value={'Booking'}>Bookings</option>

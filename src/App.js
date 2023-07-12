@@ -15,7 +15,7 @@ import Success from './pages/unprotected/Success';
 import UserAccountSettings from './pages/protected/UserAccountSettings';
 import BookingDetails from './pages/protected/BookingDetails';
 import UpdateJob from './pages/protected/UpdateJob';
-import React, { createContext } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import ResponseComponent from './components/ResponseComponent';
 import ListOfDjs from './pages/protected/ListOfDjs';
 import ListOfSchedules from './pages/protected/ListOfSchedules';
@@ -32,13 +32,14 @@ import AdminSignInForm from './components/AdminSignInForm';
 import AdminSignUpForm from './components/AdminSignUpForm';
 import AdminForgotPasswordForm from './components/AdminForgotPasswordForm';
 import AdminResetPassword from './components/AdminResetPassword';
+import ReportPreview from './pages/protected/ReportPreview';
 
 export const ScrollContext = createContext();
 
 function App() {
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const user = JSON.parse(localStorage.getItem('userInfo'));
     
     dispatch(getAllUsers());
@@ -48,11 +49,11 @@ function App() {
     }
   },[dispatch]);
 
-  const [scrolled, setScrolled] = React.useState(false);
-  const [showSearchForm, setShowSearchForm] = React.useState(false);
-  const [notHomePage, setNotHomePage] = React.useState(false);
-  const [responseMessage, setResponseMessage] = React.useState({ message: '', severity: ''});
-  const [open, setOpen] = React.useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [showSearchForm, setShowSearchForm] = useState(false);
+  const [notHomePage, setNotHomePage] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({ message: '', severity: ''});
+  const [open, setOpen] = useState(false);
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -70,7 +71,7 @@ function App() {
     }
   };
   
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -86,7 +87,7 @@ function App() {
       setOpen, 
       handleClose,
       responseMessage, 
-      setResponseMessage
+      setResponseMessage,
       }}>
       <Router>
         <Routes>
@@ -121,6 +122,7 @@ function App() {
             <Route path='bookings/:id' element={<BookingDetails />} />
             <Route path='djs/:id' element={<DjDetails />} />
             <Route path='my-booking/:id' element={<BookingDetails />} />
+            <Route path='report-preview' element={<ReportPreview />} />
             <Route path='update-job/:id' element={<UpdateJob />} />
           </Route>
 

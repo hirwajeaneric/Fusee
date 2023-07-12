@@ -24,7 +24,7 @@ const styles2 = {
 
 export default function Home() {
   const { setNotHomePage } = useContext(ScrollContext);
-  const { isLoading, listOfDJs, numberOfDjs } = useSelector(state => state.user)
+  const { isLoading, listOfDJs } = useSelector(state => state.user)
 
   useEffect(() => {
     setNotHomePage(false);
@@ -142,7 +142,7 @@ export default function Home() {
                   backgroundOrigin: "initial",
                 }}>
               </div>
-              <p className="description">Event planning and management</p>
+              <p className="description">Concerts</p>
             </Card1>
             <Card1>
               <div 
@@ -153,7 +153,7 @@ export default function Home() {
                   backgroundOrigin: "initial",
                 }}>
               </div>
-              <p className="description">Event planning and management</p>
+              <p className="description">Meetings</p>
             </Card1>
             <Card1>
               <div 
@@ -164,7 +164,7 @@ export default function Home() {
                   backgroundOrigin: "initial",
                 }}>
               </div>
-              <p className="description">Event planning and management</p>
+              <p className="description">Wedding ceremonies</p>
             </Card1>
             <Card1>
               <div 
@@ -175,7 +175,7 @@ export default function Home() {
                   backgroundOrigin: "initial",
                 }}>
               </div>
-              <p className="description">Event planning and management</p>
+              <p className="description">Shows</p>
             </Card1>
             <Card1>
               <div 
@@ -186,7 +186,7 @@ export default function Home() {
                   backgroundOrigin: "initial",
                 }}>
               </div>
-              <p className="description">Event planning and management</p>
+              <p className="description">Parties</p>
             </Card1>
           </RowFlexedContainer>
         </PageSizedContainer>
