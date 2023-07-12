@@ -56,6 +56,12 @@ export default function Navigation() {
     localStorage.removeItem('userTkn');
     localStorage.removeItem('userInfo');
     window.location.replace('/');
+
+    if (user.userType === 'Manager') {
+      window.location.replace('/admin/auth/signin');
+    } else {
+      window.location.replace('/');
+    }
   }
 
   return (

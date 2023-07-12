@@ -28,10 +28,6 @@ import { getDjPictures } from './redux/features/jobPicturesSlice';
 import { getAllBookings } from './redux/features/bookingSlice';
 import DjDetails from './pages/protected/DjDetails';
 import AdminAuth from './pages/unprotected/AdminAuth';
-import AdminSignInForm from './components/AdminSignInForm';
-import AdminSignUpForm from './components/AdminSignUpForm';
-import AdminForgotPasswordForm from './components/AdminForgotPasswordForm';
-import AdminResetPassword from './components/AdminResetPassword';
 
 export const ScrollContext = createContext();
 
@@ -103,13 +99,7 @@ function App() {
             <Route path={'search'} element={<SearchResults />}/>
           </Route>
 
-          <Route path='/admin/auth/' element={<AdminAuth />}>
-            <Route path={''} element={<AdminSignInForm />}/>
-            <Route path={'signin'} element={<AdminSignInForm />}/>
-            <Route path={'signup'} element={<AdminSignUpForm />}/>
-            <Route path={'forgot-password'} element={<AdminForgotPasswordForm />}/>
-            <Route path={'reset-password/:token/:userId'} element={<AdminResetPassword />}/>
-          </Route>
+          <Route path='/admin/auth' element={<AdminAuth />} />
 
           <Route path='/dash' element={localStorage.getItem("userTkn") ? <ProtectedPages /> : <Navigate replace to='/' />}>
             <Route path='' element={<UserAccountHome />} />
