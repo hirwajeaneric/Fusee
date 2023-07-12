@@ -1,4 +1,4 @@
-import { Box, TextField, Button } from '@mui/material';
+import { Box, TextField, Button, Select } from '@mui/material';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -430,9 +430,10 @@ export const CustomButton = styled.button`
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: #1a1a1a;
+    background-color: #3399ff;
     cursor: pointer;
     transition: border-color 0.25s;
+    color: white;
 
     &:hover {
         border-color: #646cff;
@@ -537,6 +538,89 @@ export const CustomButtonTwo = styled(Button)`
 
     @media (max-width: 480px) {
         width: 100%;
+    }
+`;
+
+export const CustomSelect = styled(Select)`
+    
+    @media (max-width: 768px) {
+        
+    }
+
+    @media (max-width: 480px) {
+        width: 90%;
+        
+    }
+`;
+
+export const FormElement = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+
+    label {
+        font-size: 90%;
+    }
+
+    p {
+        font-size: 90%;
+        color: tomato;
+    }
+
+    textarea {
+        font-size: 110%;
+        font-family: 'Trebuchet MS', Arial, sans-serif;
+    }
+
+    input, textarea, select, option {
+        width: 100%;
+        padding: 12px 12px;
+        border: 1px solid #b3cccc;
+        border-radius: 3px;
+        font-size: 100%;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .input-with-icon {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+
+        svg {
+            font-size: 200%;
+            color: black;
+        }
+
+        div {
+            border-top: 1px solid #b3cccc;
+            border-bottom: 0px;
+            border-left: 0px;
+            border-right: 0px;
+            border-radius: 3px;
+            width:100%;
+                
+            input, textarea, select, option {
+                padding: 12px 12px;
+                font-size: 100%;
+                border-top: 0px;
+                border-bottom: 0px;
+                border-left: 0px;
+                border-right: 0px;
+            }
+
+            label {
+                padding-left: 12px;
+            }
+        }
     }
 `;
 

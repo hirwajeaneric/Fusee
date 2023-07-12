@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { AdminDashboardContainer, AnEvent, FullPageContainer, HorizontallyFlexedContainer, PageContainer, PageSizedContainer, RowFlexedContainer, RowFlexedContainer2, VerticallyFlexedContainer } from "../../styles/GeneralStyledComponents";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ScrollContext } from "../../App";
 import { BsCartCheck, BsCart3 } from "react-icons/bs";
 import { FiUsers, FiUserCheck } from "react-icons/fi";
@@ -12,6 +12,7 @@ import { MdLocationPin } from "react-icons/md";
 export default function UserAccountHome() {
   const { setNotHomePage } = useContext(ScrollContext);
   const dispatch = useDispatch();
+  const [searchOptions, setSearchOptions] = useState({ location: '', djName: ''});
 
   useEffect(() => {
     if (window.location.pathname !== '/') {
@@ -20,7 +21,12 @@ export default function UserAccountHome() {
     dispatch(getAllBookings());
   }, [setNotHomePage, dispatch]);
 
-  const { listOfBookings, numberOfBookings, listofConfirmedBookings, numberofConfirmedBookings, isLoading } = useSelector(state => state.booking);
+  const searchBookings = ({currentTarget: input}) => {
+    setSearchOptions({ ...searchOptions, location : input.value });
+    dispatch({type: 'booking/dynamicSearch', payload: input.value });
+  }
+
+  const { listOfBookings, numberOfBookings, searchBookingsResults, listofConfirmedBookings, numberofConfirmedBookings, isLoading } = useSelector(state => state.booking);
   const { listOfDJs, numberOfDJs, numberOfActiveDjs } = useSelector(state => state.user);
 
   return (
@@ -82,11 +88,19 @@ export default function UserAccountHome() {
                   <HorizontallyFlexedContainer>
                     <h2>Schedules</h2>
                     <HorizontallyFlexedContainer style={{ width: '50%', justifyContent:'flex-end'}}>
-                      <input style={{ fontSize:'100%', color: 'black', backgroundColor: 'white', padding: '8px 12px', border: '1px solid rgba(0,0,0,0.3)', borderRadius:'5px'}} type='text' name="search" placeholder="Search by Location" />
+                      <input 
+                        type='text' 
+                        name="search" 
+                        placeholder="Search by Location"
+                        onChange={searchBookings}
+                        style={{ fontSize:'100%', color: 'black', backgroundColor: 'white', padding: '8px 12px', border: '1px solid rgba(0,0,0,0.3)', borderRadius:'5px'}} 
+                      />
                     </HorizontallyFlexedContainer>
                   </HorizontallyFlexedContainer>
 
-                  <RowFlexedContainer2 style={{ justifyContent:'flex-start', alignItems: "flex-start", gap: '20px', flexDirection: 'row' }}>
+                  {/* Available bookings  */}
+
+                  {!searchOptions.location && <RowFlexedContainer2 style={{ justifyContent:'flex-start', alignItems: "flex-start", gap: '20px', flexDirection: 'row' }}>
                     {listOfBookings.map((booking, index) => (
                       <AnEvent to={`../bookings/${booking.id}`} key={index}>
                         <div className='picture'
@@ -113,7 +127,36 @@ export default function UserAccountHome() {
                         </div>
                       </AnEvent>
                     ))}
-                  </RowFlexedContainer2>
+                  </RowFlexedContainer2>}
+
+                  {searchOptions.location && <RowFlexedContainer2 style={{ justifyContent:'flex-start', alignItems: "flex-start", gap: '20px', flexDirection: 'row' }}>
+                    {searchBookingsResults.map((booking, index) => (
+                      <AnEvent to={`../bookings/${booking.id}`} key={index}>
+                        <div className='picture'
+                          style={{ background: "url('/pexels-francesco-paggiaro-2111015.jpg')", backgroundSize: "cover",backgroundOrigin: "initial" }}>
+                        </div>
+                        <div className='description'>
+                          <p><strong>{booking.jobType}</strong></p>
+                          <br />
+                          <div className='day'>
+                            <p className='week-day'>{new Date(booking.startDate).getDay()}</p>
+                            <p className='date-time'>{new Date(booking.startDate).toDateString()}</p>
+                          </div>
+                          <p className='date-time'>
+                            {new Date(booking.startDate).toLocaleTimeString()} to {new Date(booking.endDate).toLocaleTimeString()}
+                          </p>
+                          <div className="location">
+                            <strong>Host</strong>
+                            <p>{booking.suggestedDjName}</p>
+                          </div>
+                          <div className="location">
+                            <MdLocationPin />
+                            <p>{booking.jobLocation}</p>
+                          </div>
+                        </div>
+                      </AnEvent>
+                    ))}
+                  </RowFlexedContainer2>}
 
                 </VerticallyFlexedContainer>
               </>

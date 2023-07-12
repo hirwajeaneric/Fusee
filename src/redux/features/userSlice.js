@@ -9,8 +9,9 @@ const initialState = {
     selectedUser: {},
     numberOfDJs: 0,
     numberOfActiveDjs: 0,
-    searchQuery: '',
+    searchOption: '',
     searchUserResults: [],
+    numberOfUserResults: 0,
     isLoading: false,
 }
 
@@ -69,11 +70,16 @@ const userSlice = createSlice({
             let users = state.listOfDJs;
             state.listOfDJs = users;
         },
+        changeSearchOption: (state, action) => {
+            state.searchOption = action.payload
+        },
         dynamicSearch: (state, action) => {
             state.searchUserResults = state.listOfDJs.filter(user => user.fullName.toUpperCase().includes(action.payload.toUpperCase()));
+            state.numberOfUserResults = state.searchUserResults.length;
         },
         manualSearch: (state, action) => {
             state.searchUserResults = state.listOfDJs.filter(user => user.fullName.toUpperCase().includes(action.payload.toUpperCase()));
+            state.numberOfUserResults = state.searchUserResults.length;
         }
     },
     extraReducers: {

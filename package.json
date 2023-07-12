@@ -34,9 +34,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "react-scripts":{
-    "treatWarningsAsErrors": false
-  },
   "eslintConfig": {
     "extends": [
       "react-app",

@@ -11,8 +11,9 @@ const initialState = {
     selectedBooking: {},
     numberOfBookings: 0,
     responseMessage: '',
-    searchedQuery: '',
+    searchOption: '',
     searchBookingsResults: [],
+    numberOfBookingsResults: 0,
     isLoading: false,
 }
 
@@ -97,11 +98,16 @@ const userSlice = createSlice({
             })
             state.listOfBookings = bookings;
         },
+        changeSearchOption: (state, action) => {
+            state.searchOption = action.payload
+        },
         dynamicSearch: (state, action) => {
-            state.searchBookingsResults = state.listOfBookings.filter(booking => booking.jobLocation.toUpperCase().includes(action.payload.toUpperCase()));
+            state.searchBookingsResults = state.listofGeneralBookings.filter(booking => booking.jobLocation.toUpperCase().includes(action.payload.toUpperCase()));
+            state.numberOfBookingsResults = state.searchBookingsResults.length;
         },
         manualSearch: (state, action) => {
-            state.searchBookingsResults = state.listOfBookings.filter(booking => booking.jobLocation.toUpperCase().includes(action.payload.toUpperCase()));
+            state.searchBookingsResults = state.listofGeneralBookings.filter(booking => booking.jobLocation.toUpperCase().includes(action.payload.toUpperCase()));
+            state.numberOfBookingsResults = state.searchBookingsResults.length;
         }
     },
     extraReducers: {
