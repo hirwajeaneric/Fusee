@@ -67,23 +67,23 @@ export default function DjInfo() {
                 <DjProfilePicture style={{ background: selectedUser.profilePicture !== undefined ? "url('"+Endpoints.APIS.files.profile+selectedUser.profilePicture+"')" : "url('/user-icon.png')", backgroundSize: "cover", backgroundOrigin: "initial", }}></DjProfilePicture>
                 <DjBasicInfo>
                   <HeaderOne1 style={{ fontWeight: '600', color: '#1b1d21', textAlign: 'left' }}>{selectedUser.fullName}</HeaderOne1>
-                  <RatingsContainer>
-                    <div className="ratings">
-                      <Rating name="read-only" value={calculatedDjRating} readOnly />
-                      <span>{calculatedDjRating}</span>
-                    </div>
-                    <Button variant="text" color="primary" size='small' onClick={handleOpenModal2}>Rate me <ArrowForward /></Button>
-                  </RatingsContainer>
                   {selectedUser.alias && <h2 style={{ color: 'gray', fontWeight: '600', fontSize: '140%' }}><strong>Alias: </strong>{selectedUser.alias}</h2>}
                   {selectedUser.description && <p className="description">{selectedUser.description}</p>}
                   <p><strong>Email: </strong>{selectedUser.email}</p>
-                  <p><strong>Ratings: </strong>{selectedUser.ratings}</p>
                   {selectedUser.specialities && 
                     <div>
                       <h3 style={{ fontWeight: '600', fontSize: '120%' }}>Specialized in</h3>
                       <p style={{ fontWeight: '500', color: 'grey' }}>{selectedUser.specialities}</p>
                     </div>
                   }
+                  <RatingsContainer>
+                    <div className="ratings">
+                      <Rating name="read-only" value={calculatedDjRating} readOnly />
+                      <span>{isNaN(calculatedDjRating) ? 0 : calculatedDjRating}</span>
+                    </div>
+                    <Button variant="text" color="primary" size='small' onClick={handleOpenModal2}>Rate me <ArrowForward /></Button>
+                  </RatingsContainer>
+                  <p><strong>Starting price: </strong>$ {selectedUser.startingPrice}</p>
                 </DjBasicInfo>
               </RowFlexedContainer2>
 

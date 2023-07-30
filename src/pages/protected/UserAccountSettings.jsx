@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { DjProfilePicture, DjBasicInfo, FullPageContainer,RowFlexedContainer2, GalleryForm, ProfilePictureForm, AnEvent, HeaderOne1, PageContainer, PageSizedContainer, CustomButtonTwo, RowFlexedContainerForm, FormInputsContainer, CustomImageDetailsBox } from "../../styles/GeneralStyledComponents";
+import { DjProfilePicture, DjBasicInfo, FullPageContainer,RowFlexedContainer2, GalleryForm, ProfilePictureForm, AnEvent, HeaderOne1, PageContainer, PageSizedContainer, CustomButtonTwo, RowFlexedContainerForm, FormInputsContainer, CustomImageDetailsBox, RatingsContainer } from "../../styles/GeneralStyledComponents";
 import { useContext, useEffect, useState } from "react";
 import { ScrollContext } from "../../App";
 import { MdLocationPin } from 'react-icons/md';
@@ -9,8 +9,9 @@ import { useParams } from "react-router-dom";
 import Endpoints from "../../utils/APIS";
 import axios from "axios";
 import { getDjPictures, getPictureDetails } from "../../redux/features/jobPicturesSlice";
-import { Modal } from "@mui/material";
+import { Modal, Rating } from "@mui/material";
 import { getMyBookings } from "../../redux/features/bookingSlice";
+import { getDJRatings } from "../../redux/features/ratingSlice";
 
 export default function DjInfo() {
   const { setNotHomePage } = useContext(ScrollContext);
@@ -58,6 +59,7 @@ export default function DjInfo() {
     dispatch(getUserInfo(user.id));
     dispatch(getDjPictures(user.id));
     dispatch(getMyBookings(user.id));
+    dispatch(getDJRatings(user.id));
 
     if (window.location.pathname !== '/' || window.location.pathname !== '') {
       setNotHomePage(true);
@@ -221,6 +223,7 @@ export default function DjInfo() {
   const { isLoading, selectedUser } = useSelector(state => state.user);
   const { listOfJobPictures, selectedPicture } = useSelector(state => state.jobPicture);
   const { listOfADjsBookings } = useSelector(state => state.booking);
+  const { calculatedDjRating } = useSelector(state => state.rating)
 
   return (
     <PageContainer>
@@ -248,9 +251,17 @@ export default function DjInfo() {
               <DjBasicInfo>
                 {!editable && <HeaderOne1 style={{ fontWeight: '600', color: '#1b1d21', textAlign: 'left' }}>{selectedUser.fullName}</HeaderOne1>}
                 {!editable && <h2 style={{ color: 'gray', fontWeight: '600', fontSize: '140%' }}>{selectedUser.alias}</h2>}
+                {!editable && 
+                  <RatingsContainer>
+                    <div className="ratings">
+                      <Rating name="read-only" value={calculatedDjRating} readOnly />
+                      <span>{calculatedDjRating}</span>
+                    </div>
+                  </RatingsContainer>
+                }
+                {!editable && <p><strong>Starting price: </strong>$ {selectedUser.startingPrice}</p>}
                 {!editable && <p><strong>Email: </strong>{selectedUser.email}</p>}
                 {!editable && <p><strong>Phone: </strong>{selectedUser.phone}</p>}
-                {!editable && <p><strong>Ratings: </strong>{selectedUser.ratings}</p>}
 
                 {editable && 
                   <FormInputsContainer>
@@ -277,6 +288,13 @@ export default function DjInfo() {
                   <FormInputsContainer>
                     <label htmlFor="email">Email</label>
                     <input type="text" name='email' value={userInfo.email || ''} id="email" onChange={handleUserFormInputs} placeholder='Email' />
+                  </FormInputsContainer>  
+                }
+
+                {editable && 
+                  <FormInputsContainer>
+                    <label htmlFor="startingPrice">Starting price</label>
+                    <input type="number" name='startingPrice' value={userInfo.startingPrice || ''} id="startingPrice" onChange={handleUserFormInputs} placeholder='Starting price' />
                   </FormInputsContainer>  
                 }
 
