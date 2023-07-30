@@ -40,52 +40,41 @@ export default function Schedules() {
                 <p style={{ color: 'gray' }}>Found: {numberOfUserResults} dj(s)</p>
               </RowFlexedContainer2>
               <RowFlexedContainer2 style={{ flexDirection: 'column', justifyContent:'flex-start', gap: '30px', alignItems: "flex-start", marginTop:'20px' }}>
+                
                 {searchUserResults.length === 0 && <RowFlexedContainer2 style={{ justifyContent:'flex-start', alignItems: "flex-start", gap: '20px', flexDirection: 'row' }}>
-                  {listOfDJs && listOfDJs.map((dj, index) => 
-                    <Card2 onClick={() => { navigate(`/dj/${dj.id}`)}} key={index}>
-                      {dj.profilePicture !== undefined ? <div 
-                        className="image-card"
-                        style={{ 
-                          background: `url('${Endpoints.APIS.files.profile+dj.profilePicture}')`,
-                          backgroundSize: "cover",
-                          backgroundOrigin: "initial",
-                        }}>
-                      </div> :
-                      <div 
-                        className="image-card"
-                        style={{ 
-                          background: "url('user-icon.png')",
-                          backgroundSize: "cover",
-                          backgroundOrigin: "initial",
-                        }}>
-                      </div>}
-                      <p className="description">{dj.fullName}</p>
-                    </Card2>
-                  )}
+                  {listOfDJs && listOfDJs.map((dj, index) => {
+                    if (dj.status === 'Active') {
+                      return (
+                        <Card2 onClick={() => { navigate(`/dj/${dj.id}`)}} key={index}>
+                          {dj.profilePicture !== undefined 
+                            ? 
+                            <div className="image-card" style={{ background: `url('${Endpoints.APIS.files.profile+dj.profilePicture}')`, backgroundSize: "cover", backgroundOrigin: "initial" }}></div> 
+                            :
+                            <div className="image-card" style={{ background: "url('user-icon.png')", backgroundSize: "cover", backgroundOrigin: "initial" }}></div>
+                          }
+                          <p className="description">{dj.fullName}</p>
+                        </Card2>
+                      )
+                    }
+                  })}
                 </RowFlexedContainer2>}
                 
                 {searchUserResults.length !== 0 && <RowFlexedContainer2 style={{ justifyContent:'flex-start', alignItems: "flex-start", gap: '20px', flexDirection: 'row' }}>
-                  {searchUserResults && searchUserResults.map((dj, index) => 
-                    <Card2 onClick={() => { navigate(`/dj/${dj.id}`)}} key={index}>
-                      {dj.profilePicture !== undefined ? <div 
-                        className="image-card"
-                        style={{ 
-                          background: `url('${Endpoints.APIS.files.profile+dj.profilePicture}')`,
-                          backgroundSize: "cover",
-                          backgroundOrigin: "initial",
-                        }}>
-                      </div> :
-                      <div 
-                        className="image-card"
-                        style={{ 
-                          background: "url('user-icon.png')",
-                          backgroundSize: "cover",
-                          backgroundOrigin: "initial",
-                        }}>
-                      </div>}
-                      <p className="description">{dj.fullName}</p>
-                    </Card2>
-                  )}
+                  {searchUserResults && searchUserResults.map((dj, index) => {
+                    if (dj.status === 'Active') {
+                      return (
+                        <Card2 onClick={() => { navigate(`/dj/${dj.id}`)}} key={index}>
+                          {dj.profilePicture !== undefined 
+                            ? 
+                            <div className="image-card" style={{ background: `url('${Endpoints.APIS.files.profile+dj.profilePicture}')`, backgroundSize: "cover", backgroundOrigin: "initial" }}></div> 
+                            :
+                            <div className="image-card" style={{ background: "url('user-icon.png')", backgroundSize: "cover", backgroundOrigin: "initial" }}></div>
+                          }
+                          <p className="description">{dj.fullName}</p>
+                        </Card2>
+                      )
+                    }
+                  })}
                 </RowFlexedContainer2>}
 
 

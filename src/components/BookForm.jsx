@@ -1,15 +1,23 @@
 import { useForm } from 'react-hook-form';
 import { BookFormContainer } from '../styles/GeneralStyledComponents';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { ScrollContext } from '../App';
 import axios from 'axios';
 import Endpoints from '../utils/APIS';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers } from '../redux/features/userSlice';
 
 export default function BookForm() {
     const { setOpen, setResponseMessage, ...other } = useContext(ScrollContext);
-    
+    const dispatch = useDispatch();
+
     const [isProcessing, setIsProcessing] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
+
+    useEffect(() => {
+        dispatch(getAllUsers());
+    }, [])
+    
 
     const onSubmit = data => {
         setIsProcessing(true);
@@ -35,6 +43,8 @@ export default function BookForm() {
             }
         })
     };
+
+    const { listOfDJs } = useSelector(state => state.user)
     
     return (
         <BookFormContainer onSubmit={handleSubmit(onSubmit)}>
@@ -95,6 +105,25 @@ export default function BookForm() {
                 {errors.description?.type === "required" && (
                     <p role="alert">Job description is required</p>
                 )}
+            </div>
+
+            <div className="form-input-container2">
+                <select 
+                    {...register("suggestedDjId", { required: false })}
+                    aria-invalid={errors.suggestedDjId ? "true" : "false"}
+                >
+                    <option value="">Suggest a DJ</option>
+                    {listOfDJs.map((dj, index) => {
+                        if (dj.status === 'Active') {
+                            return (
+                                <option key={index} value={dj.id}>
+                                    <span>{dj.fullName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span>$ {dj.startingPrice}</span>
+                                </option>
+                            )
+                        }
+                    })}
+                </select>
             </div>
             
             <div className="form-input-container2">
