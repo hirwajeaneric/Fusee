@@ -30,12 +30,12 @@ let APIS = {
         findBySuggestedDjId: `${LINK}job/findBySuggestedDjId?suggestedDjId=` 
     },
     ratingApis: {
-        add: `${LINK}job/add`,
-        update: `${LINK}job/update?id=`,
-        delete: `${LINK}job/delete?id=`,
-        list: `${LINK}job/list`,
-        findById: `${LINK}job/findById?id=`,
-        findByDjId: `${LINK}job/findByDjId?djId=` 
+        add: `${LINK}rating/add`,
+        update: `${LINK}rating/update?id=`,
+        delete: `${LINK}rating/delete?id=`,
+        list: `${LINK}rating/list`,
+        findById: `${LINK}rating/findById?id=`,
+        findByDjId: `${LINK}rating/findByDjId?djId=` 
     },
     workTimeApis: {
         add: `${LINK}workTime/add`,

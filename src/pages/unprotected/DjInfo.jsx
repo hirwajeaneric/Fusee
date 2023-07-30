@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { DjProfilePicture, DjBasicInfo, FullPageContainer, RowFlexedContainer2, AnEvent, HeaderOne1, PageContainer, PageSizedContainer, PageLoadingComponent, CustomImageDetailsBox } from "../../styles/GeneralStyledComponents";
+import { DjProfilePicture, DjBasicInfo, FullPageContainer, RowFlexedContainer2, AnEvent, HeaderOne1, PageContainer, PageSizedContainer, PageLoadingComponent, CustomImageDetailsBox, RatingsContainer, CustomRatingBox } from "../../styles/GeneralStyledComponents";
 import { useContext, useEffect, useState } from "react";
 import { ScrollContext } from "../../App";
 import { MdLocationPin } from 'react-icons/md';
@@ -8,9 +8,11 @@ import { getUserInfo } from "../../redux/features/userSlice";
 import { useParams } from "react-router-dom";
 import Endpoints from "../../utils/APIS";
 import { getDjPictures, getPictureDetails } from "../../redux/features/jobPicturesSlice";
-import { listOfADjsBookings } from '../../redux/features/bookingSlice';
-import { Modal } from "@mui/material";
+import { Button, Modal, Rating } from "@mui/material";
 import { getMyBookings } from "../../redux/features/bookingSlice";
+import { getDJRatings } from "../../redux/features/ratingSlice";
+import { ArrowForward } from "@mui/icons-material";
+import AddRatingsForm from "../../components/AddRatingsForm";
 
 export default function DjInfo() {
   const { setNotHomePage } = useContext(ScrollContext);
@@ -22,10 +24,17 @@ export default function DjInfo() {
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
 
+  // Rating details popup states
+  const [openModal2, setOpenModal2] = useState(false);
+  const handleOpenModal2 = () => setOpenModal2(true);
+  const handleCloseModal2 = () => setOpenModal2(false);
+
   useEffect(() => {
     dispatch(getUserInfo(params.djId));
     dispatch(getDjPictures(params.djId));
     dispatch(getMyBookings(params.djId));
+    dispatch(getDJRatings(params.djId));
+    
     if (window.location.pathname !== '/' || window.location.pathname !== '') {
       setNotHomePage(true);
     }
@@ -34,6 +43,7 @@ export default function DjInfo() {
   const { isLoading, selectedUser } = useSelector(state => state.user);
   const { listOfJobPictures, selectedPicture } = useSelector(state => state.jobPicture);
   const { listOfADjsBookings } = useSelector(state => state.booking)
+  const { calculatedDjRating } = useSelector(state => state.rating)
 
   return (
     <PageContainer>
@@ -57,6 +67,13 @@ export default function DjInfo() {
                 <DjProfilePicture style={{ background: selectedUser.profilePicture !== undefined ? "url('"+Endpoints.APIS.files.profile+selectedUser.profilePicture+"')" : "url('/user-icon.png')", backgroundSize: "cover", backgroundOrigin: "initial", }}></DjProfilePicture>
                 <DjBasicInfo>
                   <HeaderOne1 style={{ fontWeight: '600', color: '#1b1d21', textAlign: 'left' }}>{selectedUser.fullName}</HeaderOne1>
+                  <RatingsContainer>
+                    <div className="ratings">
+                      <Rating name="read-only" value={calculatedDjRating} readOnly />
+                      <span>{calculatedDjRating}</span>
+                    </div>
+                    <Button variant="text" color="primary" size='small' onClick={handleOpenModal2}>Rate me <ArrowForward /></Button>
+                  </RatingsContainer>
                   {selectedUser.alias && <h2 style={{ color: 'gray', fontWeight: '600', fontSize: '140%' }}><strong>Alias: </strong>{selectedUser.alias}</h2>}
                   {selectedUser.description && <p className="description">{selectedUser.description}</p>}
                   <p><strong>Email: </strong>{selectedUser.email}</p>
@@ -64,7 +81,7 @@ export default function DjInfo() {
                   {selectedUser.specialities && 
                     <div>
                       <h3 style={{ fontWeight: '600', fontSize: '120%' }}>Specialized in</h3>
-                  <p style={{ fontWeight: '500', color: 'grey' }}>{selectedUser.specialities}</p>
+                      <p style={{ fontWeight: '500', color: 'grey' }}>{selectedUser.specialities}</p>
                     </div>
                   }
                 </DjBasicInfo>
@@ -130,6 +147,13 @@ export default function DjInfo() {
           }
         </PageSizedContainer>
       </FullPageContainer>
+
+      <Modal open={openModal2} onClose={handleCloseModal2} aria-labelledby="modal-modal-title2" aria-describedby="modal-modal-description2">
+        <CustomRatingBox style={{ overflowY:'auto' }}>
+          <h1>{`Rate ${selectedUser.fullName}`}</h1>
+          <AddRatingsForm />
+        </CustomRatingBox>
+      </Modal>
 
       <Modal open={openModal} onClose={handleCloseModal} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <CustomImageDetailsBox>

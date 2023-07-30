@@ -474,6 +474,37 @@ export const CustomParagraph = styled.p`
 
 `;
 
+export const RatingsContainer = styled.p`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+
+    .ratings {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+    }
+
+    button {
+        gap: 10px;
+        svg {
+            font-size: 100%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+
+`;
+
 export const PageContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -515,6 +546,48 @@ export const CustomImageDetailsBox = styled(Box)`
     @media (max-width: 480px) {
         width: 95%;
         height: 50%;
+    }
+`;
+
+export const CustomRatingBox = styled(Box)`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    min-height: 50%;
+    background-color: white;
+    box-shadow: 24px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-item: flex-start;
+    padding: 40px 20px 40px;
+    gap: 20px;
+
+    h1 {
+        font-weight: 400;
+        text-align: center;
+    }
+
+    div.image-details {
+        padding: 10px;
+    }
+
+    @media (max-width: 820px) {
+        width: 80%;
+        min-height: 40%;
+    
+    }
+
+    @media (max-width: 480px) {
+        width: 95%;
+        min-height: 50%;
+
+        h1 {
+            font-size: 1.5rem;
+        }
     }
 `;
 
@@ -1246,6 +1319,7 @@ export const BookFormContainer = styled.form`
     gap: 20px;
     width: 100%;
     align-items: center;
+    font-family: 'Poppins', sans-serif;
     
     .other-options {
         p {
