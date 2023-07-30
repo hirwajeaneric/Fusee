@@ -33,7 +33,12 @@ const ratingSlice = createSlice({
         [getDJRatings.fulfilled] : (state, action) => {
             state.isLoading = false;
             state.djRatings = action.payload;
-            
+            state.totalNumberOfDjRatings = state.djRatings.length;
+            var totalRatings = 0;
+            action.payload.forEach(element => {
+                totalRatings = totalRatings + element.score;
+            }); 
+            state.calculatedDjRating = (totalRatings * 5) / (5*state.totalNumberOfDjRatings); 
         },
         [getDJRatings.rejected] : (state) => {
             state.isLoading = false;
