@@ -29,6 +29,14 @@ let APIS = {
         findById: `${LINK}job/findById?id=`,
         findBySuggestedDjId: `${LINK}job/findBySuggestedDjId?suggestedDjId=` 
     },
+    ratingApis: {
+        add: `${LINK}job/add`,
+        update: `${LINK}job/update?id=`,
+        delete: `${LINK}job/delete?id=`,
+        list: `${LINK}job/list`,
+        findById: `${LINK}job/findById?id=`,
+        findByDjId: `${LINK}job/findByDjId?djId=` 
+    },
     workTimeApis: {
         add: `${LINK}workTime/add`,
         update: `${LINK}workTime/update?id=`,
