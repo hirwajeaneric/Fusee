@@ -28,26 +28,19 @@ export default function Djs() {
           <HeaderOne1 style={{ fontWeight: '600', color: '#1b1d21', textAlign: 'center' }}>Our DJs</HeaderOne1>
           <RowFlexedContainer style={{ justifyContent:'center', gap: '30px', margin: '30px 0 20px', alignItems: "flex-start" }}> 
             {isLoading && <p>Loading...</p>}
-            {listOfDJs && listOfDJs.map((dj, index) => 
-              <Card2 onClick={() => { navigate(`/dj/${dj.id}`)}} key={index}>
-                {dj.profilePicture !== undefined ? <div 
-                  className="image-card"
-                  style={{ 
-                    background: `url('${Endpoints.APIS.files.profile+dj.profilePicture}')`,
-                    backgroundSize: "cover",
-                    backgroundOrigin: "initial",
-                  }}>
-                </div> :
-                <div 
-                  className="image-card"
-                  style={{ 
-                    background: "url('user-icon.png')",
-                    backgroundSize: "cover",
-                    backgroundOrigin: "initial",
-                  }}>
-                </div>}
-                <p className="description">{dj.fullName}</p>
-              </Card2>
+            {listOfDJs && listOfDJs.map((dj, index) => {
+              if (dj.status === 'Active') {
+                return (
+                  <Card2 onClick={() => { navigate(`/dj/${dj.id}`)}} key={index}>
+                    {dj.profilePicture !== undefined 
+                    ? 
+                    <div className="image-card" style={{ background: `url('${Endpoints.APIS.files.profile+dj.profilePicture}')`, backgroundSize: "cover", backgroundOrigin: "initial" }}></div> 
+                    :
+                    <div className="image-card" style={{ background: "url('user-icon.png')", backgroundSize: "cover", backgroundOrigin: "initial",}}></div>}
+                    <p className="description">{dj.fullName}</p>
+                  </Card2>
+                )}
+              }
             )}
           </RowFlexedContainer>
         </PageSizedContainer>

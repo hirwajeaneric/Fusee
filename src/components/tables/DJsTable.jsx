@@ -17,7 +17,7 @@ const columns = [
   {
     field: 'phone',
     headerName: 'Phone',
-    width: 170,
+    width: 140,
   },
   {
     field: 'specialities',
@@ -27,7 +27,12 @@ const columns = [
   {
     field: 'ratings',
     headerName: 'Ratings',
-    width: 170,
+    width: 100,
+  },
+  {
+    field: 'status',
+    headerName: 'Status',
+    width: 100,
   },
   {
     field: 'actions',

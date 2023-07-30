@@ -84,13 +84,6 @@ export default function AdminSignUpForm() {
                 <div className="form-input-container">
                     <input 
                         type="text" 
-                        placeholder="Requesting Company" 
-                        {...register("requestingCompany", {})}   
-                    />
-                </div>
-                <div className="form-input-container">
-                    <input 
-                        type="text" 
                         placeholder="Phone Number" 
                         {...register("phone", {required: true})}
                         aria-invalid={errors.phone ? "true" : "false"}

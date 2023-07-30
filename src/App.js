@@ -1,38 +1,42 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { createContext, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getAllUsers } from './redux/features/userSlice';
+import { getDjPictures } from './redux/features/jobPicturesSlice';
+import { getAllBookings } from './redux/features/bookingSlice';
+import ResponseComponent from './components/ResponseComponent';
 
 import PublicPages from './pages/unprotected/index';
 import Home from './pages/unprotected/Home';
-import Book from './pages/protected/Book';
 import Djs from './pages/unprotected/Djs';
 import DjInfo from './pages/unprotected/DjInfo';
 import DjJobDetails from './pages/unprotected/DjJobDetails';
 import SearchResults from './pages/unprotected/SearchResults';
+import Success from './pages/unprotected/Success';
 import Schedules from './pages/unprotected/Schedules';
 
-import ProtectedPages from './pages/protected/index';
-import UserAccountHome from './pages/protected/UserAccountHome';
-import Success from './pages/unprotected/Success';
-import UserAccountSettings from './pages/protected/UserAccountSettings';
-import BookingDetails from './pages/protected/BookingDetails';
-import UpdateJob from './pages/protected/UpdateJob';
-import { createContext, useEffect, useState } from 'react';
-import ResponseComponent from './components/ResponseComponent';
-import ListOfDjs from './pages/protected/ListOfDjs';
-import ListOfSchedules from './pages/protected/ListOfSchedules';
-import ListOfBookings from './pages/protected/ListOfBookings';
+import Book from './pages/protected/Book';
 import MyBookings from './pages/protected/MyBookings';
-import { useDispatch } from 'react-redux';
-import { getAllUsers } from './redux/features/userSlice';
-import ResetPassword from './pages/protected/ResetPassword';
-import { getDjPictures } from './redux/features/jobPicturesSlice';
-import { getAllBookings } from './redux/features/bookingSlice';
-import DjDetails from './pages/protected/DjDetails';
+
 import AdminAuth from './pages/unprotected/AdminAuth';
 import AdminSignInForm from './components/AdminSignInForm';
 import AdminSignUpForm from './components/AdminSignUpForm';
 import AdminForgotPasswordForm from './components/AdminForgotPasswordForm';
 import AdminResetPassword from './components/AdminResetPassword';
+
+import ProtectedPages from './pages/protected/index';
+import UserAccountHome from './pages/protected/UserAccountHome';
+import UserAccountSettings from './pages/protected/UserAccountSettings';
+import BookingDetails from './pages/protected/BookingDetails';
+import UpdateJob from './pages/protected/UpdateJob';
+import ListOfSchedules from './pages/protected/ListOfSchedules';
+import ListOfBookings from './pages/protected/ListOfBookings';
+import ResetPassword from './pages/protected/ResetPassword';
 import ReportPreview from './pages/protected/ReportPreview';
+
+import DjDetails from './pages/protected/DjDetails';
+import AddDj from './pages/protected/AddDJ';
+import ListOfDjs from './pages/protected/ListOfDjs';
 
 export const ScrollContext = createContext();
 
@@ -117,7 +121,8 @@ function App() {
             <Route path='my-bookings' element={<MyBookings />} />
             <Route path='bookings' element={<ListOfBookings />} />
             <Route path='schedules' element={<ListOfSchedules />} />
-            <Route path='djs' element={<ListOfDjs />} />
+            <Route path='djs/' element={<ListOfDjs />} />
+            <Route path='new-dj/' element={<AddDj />} />
             <Route path='settings' element={<UserAccountSettings />} />
             <Route path='bookings/:id' element={<BookingDetails />} />
             <Route path='djs/:id' element={<DjDetails />} />

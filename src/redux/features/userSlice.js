@@ -66,8 +66,7 @@ const userSlice = createSlice({
         },
         updateUserInfo: (state, action) => {
             state.selectedUser = action.payload;
-            let users = state.listOfDJs;
-            state.listOfDJs = users;
+            console.log(action.payload);
         },
         changeSearchOption: (state, action) => {
             state.searchOption = action.payload
@@ -104,23 +103,6 @@ const userSlice = createSlice({
             state.selectedUser = action.payload;
         },
         [getUserInfo.rejected] : (state) => {
-            state.isLoading = false;
-        },
-        [updateUser.pending] : (state) => {
-            state.isLoading = true;
-        },
-        [updateUser.fulfilled] : (state, action) => {
-            state.isLoading = false;
-            state.selectedUser = action.payload;
-            let djs = state.listOfDJs;
-            djs.forEach(user => {
-                if (user._id === action.payload._id) {
-                    user = action.payload;
-                }
-            })
-            state.listOfDJs = djs;
-        },
-        [updateUser.rejected] : (state) => {
             state.isLoading = false;
         }
     }

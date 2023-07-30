@@ -192,33 +192,26 @@ export default function Home() {
         </PageSizedContainer>
       </FullPageContainer>
 
-
+      {/* LIST OF DJS TO THE HOME PAGE *************************************************************************************************** */}
       <FullPageContainer style={{ background: '#f1f1f1' }}>
         <PageSizedContainer>
           <HeaderOne1 style={{ fontWeight: '600', color: '#1b1d21', textAlign: 'center' }}>The best DJs are here.</HeaderOne1>
           <RowFlexedContainer style={{ justifyContent:'center', gap: '30px', margin: '30px 0 20px', alignItems: "flex-start" }}> 
             {isLoading && <p>Loading...</p>}
-            {listOfDJs && listOfDJs.map((dj, index) => 
-              <Card2 key={index}>
-                {dj.profilePicture !== undefined ? <div 
-                  className="image-card"
-                  style={{ 
-                    background: `url('${Endpoints.APIS.files.profile+dj.profilePicture}')`,
-                    backgroundSize: "cover",
-                    backgroundOrigin: "initial",
-                  }}>
-                </div> :
-                <div 
-                  className="image-card"
-                  style={{ 
-                    background: "url('user-icon.png')",
-                    backgroundSize: "cover",
-                    backgroundOrigin: "initial",
-                  }}>
-                </div>}
-                {!dj.alias ? <p className="description">{dj.fullName}</p> : <p className="description">{dj.alias}</p>}
-              </Card2>
-            )}
+            {listOfDJs && listOfDJs.map((dj, index) => {
+              if (index < 6 && dj.status === 'Active') {
+                return (
+                  <Card2 key={index}>
+                    {dj.profilePicture !== undefined 
+                    ? 
+                    <div className="image-card" style={{ background: `url('${Endpoints.APIS.files.profile+dj.profilePicture}')`, backgroundSize: "cover", backgroundOrigin: "initial" }}></div> 
+                    :
+                    <div className="image-card" style={{ background: "url('user-icon.png')", backgroundSize: "cover", backgroundOrigin: "initial" }}></div>}
+                    {!dj.alias ? <p className="description">{dj.fullName}</p> : <p className="description">{dj.alias}</p>}
+                  </Card2>
+                )
+              }})
+            }
           </RowFlexedContainer>
           <CallToActionButton 
             text={'View more'} 

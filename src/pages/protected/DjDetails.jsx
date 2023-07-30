@@ -3,17 +3,18 @@ import { FullPageContainer, PageContainer, PageSizedContainer, RowFlexedContaine
 import { useContext, useEffect, useState } from "react";
 import { ScrollContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getUserInfo } from "../../redux/features/userSlice";
 import axios from "axios";
 import Endpoints from "../../utils/APIS";
 import { Button } from "@mui/material";
 
 const DjDetails = () => {
-  const { setNotHomePage } = useContext(ScrollContext);
   const dispatch = useDispatch();
   const params = useParams();
-  const { setOpen, setResponseMessage, ...other } = useContext(ScrollContext);
+  const navigate = useNavigate();
+  const { setNotHomePage } = useContext(ScrollContext);
+  const { setOpen, setResponseMessage } = useContext(ScrollContext);
   const [isProcessing, setIsProcessing] = useState(false);
   const [user, setUser] = useState({});
 
@@ -29,21 +30,23 @@ const DjDetails = () => {
     setUser({ ...user, [input.name]: input.value });
   }
 
-  const { listOfDJs, isLoading, selectedUser } = useSelector(state => state.user);
+  const { isLoading, selectedUser } = useSelector(state => state.user);
 
   const updateUser = (userId) => {
     
     setIsProcessing(true);
-    axios.put(Endpoints.APIS.userApis.update+userId, user)
+    let URL = Endpoints.APIS.userApis.updateUserAccount+userId
+    axios.put(URL, user)
     .then(response => {
-      setTimeout(() => {
-        if (response.status === 200) {
-          setIsProcessing(false);
-          setResponseMessage({ message: response.data.message , severity: 'success' });
-          setOpen(true);
-          dispatch({ type: 'user/updateUserInfo', payload: response.data.user});
-        }
-      }, 3000)
+      if (response.status === 200) {
+        setIsProcessing(false);
+        setResponseMessage({ message: response.data.message , severity: 'success' });
+        setOpen(true);
+        dispatch({ type: 'user/updateUserInfo', payload: response.data.user});
+        setTimeout(() => {
+          navigate('/dash/djs')
+        }, 2000)
+      }
     })
     .catch(error => {
       if (error.response && error.response.status >= 400 && error.response.status <= 500) {
@@ -114,7 +117,7 @@ const DjDetails = () => {
                       { isProcessing ?
                         <Button disabled variant='contained' size='small' type='submit' color='primary'>PROCESSING...</Button>
                         : 
-                        <Button variant='contained' size='small' type='submit' color='primary'>Confirm</Button>
+                        <Button variant='contained' size='small' type='submit' color='primary'>Confirm update</Button>
                       }
                     </div>
                   </div>

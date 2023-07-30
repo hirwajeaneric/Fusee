@@ -5,10 +5,13 @@ import { ScrollContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import DJsTable from "../../components/tables/DJsTable";
 import { getAllUsers } from "../../redux/features/userSlice";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function ListOfDjs() {
   const { setNotHomePage } = useContext(ScrollContext);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (window.location.pathname !== '/') {
@@ -30,7 +33,12 @@ export default function ListOfDjs() {
           <RowFlexedContainer2 style={{ flexDirection: 'column', justifyContent:'flex-start', alignItems: "center", minHeight: '40vh' }}>
             {isLoading ? <p>Loading...</p> : 
               <>
-                <h2 style={{ fontWeight: '600', color: '#1b1d21', textAlign: 'left', width: '100%' }}>Lisf of DJs</h2>
+                {/* Title  */}
+                <RowFlexedContainer2>
+                  <h2 style={{ fontWeight: '600', color: '#1b1d21', textAlign: 'left', width: '100%' }}>Lisf of DJs</h2>
+                  <Button variant='contained' color='success' size='small' onClick={() => { navigate('/dash/new-dj'); }}>Add</Button>
+                </RowFlexedContainer2>
+                {/* Table of DJS  */}
                 <DJsTable data={listOfDJs} />
               </>
             }
