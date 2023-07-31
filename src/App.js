@@ -37,6 +37,7 @@ import ReportPreview from './pages/protected/ReportPreview';
 import DjDetails from './pages/protected/DjDetails';
 import AddDj from './pages/protected/AddDJ';
 import ListOfDjs from './pages/protected/ListOfDjs';
+import ScheduleDetails from './pages/unprotected/ScheduleDetails';
 
 export const ScrollContext = createContext();
 
@@ -103,6 +104,7 @@ function App() {
             <Route path={'djs'} element={<Djs />}/>
             <Route path={'reset-password/:token/:userId'} element={<ResetPassword />}/>
             <Route path={'schedules'} element={<Schedules />}/>
+            <Route path='schedules/:scheduleId' element={<ScheduleDetails />} />
             <Route path={'dj/:djId'} element={<DjInfo />}/>
             <Route path={'dj/:djId/:jobId'} element={<DjJobDetails />}/>
             <Route path={'search'} element={<SearchResults />}/>

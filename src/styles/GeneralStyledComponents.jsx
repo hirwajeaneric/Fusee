@@ -192,6 +192,34 @@ export const RowFlexedContainerForm = styled.form`
 
 `;
 
+export const MapContainer = styled.div`
+    width: 100%; 
+    height: 400px;
+    margin: 20px 0;
+    border: 1px solid gray; 
+    border-radius: 5px;
+    
+
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        height: 300px;
+        margin: 40px 0;
+    }
+
+    @media (max-width: 480px) {
+        height: 200px;
+        margin: 20px 0;
+    }
+`;
+
 export const PageSizedContainer = styled.div`;
     display: flex;
     justify-content: space-between;
@@ -636,6 +664,7 @@ export const FormElement = styled.div`
 
     label {
         font-size: 90%;
+        color: black;
     }
 
     p {

@@ -114,7 +114,12 @@ export default function DjInfo() {
                   <h2 style={{ color: 'gray', fontWeight: '600', fontSize: '140%' }}>Events</h2>
                   <RowFlexedContainer2 style={{ justifyContent:'flex-start', alignItems: "flex-start", gap: '20px', flexDirection: 'row' }}>
                     {listOfADjsBookings.map((booking, index) => (
-                      <AnEvent to={`../bookings/${booking.id}`} key={index}>
+                      <AnEvent 
+                        to={
+                          (booking.jobType === 'Club' || booking.jobType === 'Concert' || booking.jobType === 'Public meeting sound system' || booking.jobType === 'Event Management') ? `/schedules/${booking.id}` : '#'
+                        } 
+                        key={index}
+                      >
                         <div className='picture'
                           style={{ background: "url('/pexels-francesco-paggiaro-2111015.jpg')", backgroundSize: "cover",backgroundOrigin: "initial" }}>
                         </div>

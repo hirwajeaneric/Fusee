@@ -33,7 +33,8 @@ export default function Schedules() {
               {isLoading ? <p style={{ color: 'black' }}>Loading...</p> : 
                 <>
                   {listofConfirmedBookings.map((booking, index) => (
-                    <AnEvent key={index}>
+                    <AnEvent 
+                      to={(booking.jobType === 'Club' || booking.jobType === 'Concert' || booking.jobType === 'Public meeting sound system' || booking.jobType === 'Event Management') ? `/schedules/${booking.id}` : '#'} key={index}>
                       <div className='picture'
                         style={{ background: "url('/pexels-francesco-paggiaro-2111015.jpg')", backgroundSize: "cover",backgroundOrigin: "initial" }}>
                       </div>
