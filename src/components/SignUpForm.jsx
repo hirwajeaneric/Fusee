@@ -45,6 +45,7 @@ export default function SignUpForm(props) {
                 <input 
                     type="text" 
                     placeholder="Full Name" 
+                    minLength={3}
                     {...register("fullName", {required: true})}
                     aria-invalid={errors.fullName ? "true" : "false"}
                 />
@@ -75,6 +76,8 @@ export default function SignUpForm(props) {
             <div className="form-input-container">
                 <input 
                     type="text" 
+                    minLength={10}
+                    maxLength={10}
                     placeholder="Phone Number" 
                     {...register("phone", {required: true})}
                     aria-invalid={errors.phone ? "true" : "false"}
@@ -86,6 +89,7 @@ export default function SignUpForm(props) {
             <div className="form-input-container">
                 <input 
                     type="email" 
+                    minLength={8}
                     placeholder="Email" 
                     {...register("email", 
                     {required: true, 
@@ -100,6 +104,7 @@ export default function SignUpForm(props) {
             <div className="form-input-container">
                 <input 
                     type="password" 
+                    minLength={8}
                     placeholder="Password" 
                     {...register("password", 
                     {required: true, 

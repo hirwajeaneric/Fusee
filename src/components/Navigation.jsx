@@ -83,6 +83,7 @@ export default function Navigation() {
         {/* Desktop navigation bar  */}
         <DesktopNavigation>
           <NavLink to={'/'}>Home</NavLink>
+          <NavLink to={'/about'}>About us</NavLink>
           <NavLink to={'/djs'}>DJs</NavLink>
           <NavLink to={'/book-now'} onClick={handleBookLinkConditions}>Book now</NavLink>
           <NavLink to={'/schedules'}>Schedules</NavLink>

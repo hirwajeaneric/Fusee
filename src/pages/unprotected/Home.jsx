@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import Endpoints from "../../utils/APIS";
 
 const styles1 = { 
-  background: 'url("/pexels-mikky-k-625644.jpg")',
+  background: 'url("/background.gif")',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat', 
   backgroundPosition: 'bottom'
@@ -53,21 +53,11 @@ export default function Home() {
         <PageSizedContainer style={{ padding: '20px 0' }}>
           <h2 style={{ fontWeight: '500', marginBottom: '0px', color: '#1b1d21', }}>Trusted By</h2>
           <RowFlexedContainer style={{ justifyContent:'center', gap: '30px' }}> 
-            <div style={{ color: '#9da3af', fontSize: '200%', fontWeight: '900', }}>
-              ABCD
-            </div>
-            <div style={{ color: 'rgb(255,255, 255)', fontSize: '300%', fontWeight: '900', }}>
-              abcd
-            </div>
-            <div style={{ color: '#9da3af', fontSize: '200%', fontWeight: '900', }}>
-              xyz
-            </div>
-            <div style={{ color: 'white', fontSize: '250%', fontWeight: '900', }}>
-              Ubuntu
-            </div>
-            <div style={{ color: '#9da3af', fontSize: '250%', fontWeight: '900', }}>
-              Design250
-            </div>
+            <img src='mtn-logo.svg' alt='' style={{ width: '140px' }}/>
+            <img src='radisson_2.png' alt='' style={{ width: '140px' }}/>
+            <img src='sbl-logo.png' alt='' style={{ width: '140px' }}/>
+            <img src='brlogogreen.jpeg' alt='' style={{ width: '140px' }}/>
+            <img src='logo_31.png' alt='' style={{ width: '140px' }}/>
           </RowFlexedContainer>
         </PageSizedContainer>
       </FullPageContainer>
@@ -126,7 +116,7 @@ export default function Home() {
               <div 
                 className="image-card"
                 style={{ 
-                  background: "url('/pexels-cottonbro-studio-3171837.jpg')",
+                  background: "url('/event_planning.jpg')",
                   backgroundSize: "cover",
                   backgroundOrigin: "initial",
                 }}>
@@ -137,7 +127,7 @@ export default function Home() {
               <div 
                 className="image-card"
                 style={{ 
-                  background: "url('/pexels-cottonbro-studio-3171837.jpg')",
+                  background: "url('/defcon1.jpg')",
                   backgroundSize: "cover",
                   backgroundOrigin: "initial",
                 }}>
@@ -148,7 +138,7 @@ export default function Home() {
               <div 
                 className="image-card"
                 style={{ 
-                  background: "url('/pexels-cottonbro-studio-3171837.jpg')",
+                  background: "url('/meeting.jpg')",
                   backgroundSize: "cover",
                   backgroundOrigin: "initial",
                 }}>
@@ -159,7 +149,7 @@ export default function Home() {
               <div 
                 className="image-card"
                 style={{ 
-                  background: "url('/pexels-cottonbro-studio-3171837.jpg')",
+                  background: "url('/wedding_ceremony.jpeg')",
                   backgroundSize: "cover",
                   backgroundOrigin: "initial",
                 }}>
@@ -170,7 +160,7 @@ export default function Home() {
               <div 
                 className="image-card"
                 style={{ 
-                  background: "url('/pexels-cottonbro-studio-3171837.jpg')",
+                  background: "url('/show.jpg')",
                   backgroundSize: "cover",
                   backgroundOrigin: "initial",
                 }}>
@@ -181,7 +171,7 @@ export default function Home() {
               <div 
                 className="image-card"
                 style={{ 
-                  background: "url('/pexels-cottonbro-studio-3171837.jpg')",
+                  background: "url('/party.jpg')",
                   backgroundSize: "cover",
                   backgroundOrigin: "initial",
                 }}>

@@ -4,7 +4,7 @@
  * 
  * */
 const PORT = '4444';
-const HOST = '192.168.43.16';
+const HOST = '127.0.0.1';
 const PROTOCOL = 'http';
 const LINK =  `${PROTOCOL}://${HOST || 'localhost'}:${PORT}/api/v1/fdj/`;
 

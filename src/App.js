@@ -8,6 +8,7 @@ import ResponseComponent from './components/ResponseComponent';
 
 import PublicPages from './pages/unprotected/index';
 import Home from './pages/unprotected/Home';
+import AboutUs from './pages/unprotected/AboutUs';
 import Djs from './pages/unprotected/Djs';
 import DjInfo from './pages/unprotected/DjInfo';
 import DjJobDetails from './pages/unprotected/DjJobDetails';
@@ -99,6 +100,7 @@ function App() {
           
           <Route path={'/'} element={<PublicPages />}>
             <Route path={''} element={<Home />}/>
+            <Route path={'about'} element={<AboutUs />}/>
             <Route path={'book-now'} element={localStorage.getItem("userTkn") ? <Book /> : <Navigate replace to='/' />} />
             <Route path='success' element={<Success />} />
             <Route path={'djs'} element={<Djs />}/>

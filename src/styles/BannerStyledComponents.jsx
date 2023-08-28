@@ -7,8 +7,18 @@ export const Banner = styled.div`
     justify-content: center;
     align-items: center;
     min-height: 550px;
+    position: relative;
     
     .overlay {
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
         background-color: rgba(0,0,0,0.5);
         width: 100%;
         min-height: 550px;

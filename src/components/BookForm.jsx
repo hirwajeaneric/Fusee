@@ -31,7 +31,7 @@ export default function BookForm() {
                 if (response.status === 201) {
                     setIsProcessing(false);
                     setResponseMessage('Redirecting to payment handler...');
-                    window.location.replace('https://book.stripe.com/test_14k2az7Re1wYcQEaEF');
+                    window.location.replace('https://buy.stripe.com/test_6oE6rB0Xjc0G7IY4gg');
                 }
             }, 3000)
         })
@@ -194,6 +194,8 @@ export default function BookForm() {
             <div className="form-input-container2">
                 <input 
                     type="text" 
+                    minLength={10}
+                    maxLength={10}
                     placeholder="Phone Number" 
                     {...register("requestingUserPhone", {required: true})}
                     aria-invalid={errors.requestingUserPhone ? "true" : "false"}
